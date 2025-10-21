@@ -6,6 +6,7 @@ import Signup from './pages/Auth/Signup';
 import Home from './pages/Dashboard/Home';
 import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
+import UserProvider from './context/UserContext';
 
 const Root = ({ navigate }) => {
   // Checks if the token in available in local storage
@@ -18,16 +19,18 @@ const Root = ({ navigate }) => {
 const App = () => {
   const navigate = useNavigate();
   return (
-    <div className="">
-      <Routes>
-        <Route path="/" element={<Root navigate={navigate} />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Home />} />
-        <Route path="/expense" element={<Expense />} />
-        <Route path="/income" element={<Income />} />
-      </Routes>
-    </div>
+    <UserProvider>
+      <div>
+        <Routes>
+          <Route path="/" element={<Root navigate={navigate} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/expense" element={<Expense />} />
+          <Route path="/income" element={<Income />} />
+        </Routes>
+      </div>
+    </UserProvider>
   );
 };
 

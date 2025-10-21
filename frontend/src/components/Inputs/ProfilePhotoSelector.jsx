@@ -10,7 +10,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
     if (file) {
       setImage(file);
 
-      //   Generate the image preview url from the file
+      // Generate the image preview url from the file
       const preview = URL.createObjectURL(file);
       setPreviewUrl(preview);
     }
