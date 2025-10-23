@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './pages/Auth/Login';
@@ -7,13 +7,16 @@ import Home from './pages/Dashboard/Home';
 import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
 import UserProvider from './context/UserContext';
+import { Toaster } from 'react-hot-toast';
 
 const Root = ({ navigate }) => {
-  // Checks if the token in available in local storage
-  const isAuthenticated = !!localStorage.getItem('token');
+  useEffect(() => {
+    // Checks if the token in available in local storage
+    const isAuthenticated = !!localStorage.getItem('token');
 
-  // Redirects to dashboard if authenticated, otherwise to Login
-  return isAuthenticated ? navigate('/dashboard') : navigate('/login');
+    // Redirects to dashboard if authenticated, otherwise to Login
+    return isAuthenticated ? navigate('/dashboard') : navigate('/login');
+  });
 };
 
 const App = () => {
@@ -30,6 +33,15 @@ const App = () => {
           <Route path="/income" element={<Income />} />
         </Routes>
       </div>
+
+      <Toaster
+        toastOptions={{
+          className: '',
+          style: {
+            fontSize: '13px',
+          },
+        }}
+      />
     </UserProvider>
   );
 };
