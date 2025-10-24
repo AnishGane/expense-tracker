@@ -10,10 +10,16 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const CustomBarChart = ({ data }) => {
+const CustomBarChart = ({ data, type }) => {
   // Function to get alternate bar colors
   const getBarColor = (index) => {
-    return index % 2 === 0 ? '#875cf5' : '#cfbefb';
+    return index % 2 === 0
+      ? type?.toLowerCase() === 'expense'
+        ? '#ef4444'
+        : '#22c55e'
+      : type?.toLowerCase() === 'expense'
+        ? '#fca5a5'
+        : '#86efac';
   };
 
   const CustomTooltip = ({ active, payload }) => {
