@@ -13,10 +13,10 @@ export const getDashboardData = async (req, res) => {
       { $group: { _id: null, total: { $sum: "$amount" } } },
     ]);
 
-    console.log("totalIncome: ", {
-      totalIncome,
-      userId: isValidObjectId(userId),
-    });
+    // console.log("totalIncome: ", {
+    //   totalIncome,
+    //   userId: isValidObjectId(userId),
+    // });
 
     const totalExpenses = await expenseModel.aggregate([
       {
@@ -58,32 +58,36 @@ export const getDashboardData = async (req, res) => {
       0
     );
 
-    // Fetch last 5 transactions for both incomes and expenses
-    // const lastTransactions = [
-    //   ...(await incomeModel.find({ userId }).sort({ date: -1 }).limit(5)).map(
-    //     (txn) => ({
-    //       ...txn.toObject(),
-    //       type: "income",
-    //     })
-    //   ),
-    //   ...(await expenseModel.find({ userId }).sort({ date: -1 }).limit(5)).map(
-    //     (txn) => ({
-    //       ...txn.toObject(),
-    //       type: "expense",
-    //     })
-    //   ),
-    // ].sort((a, b) => b.date - a.date); //Sort the latest first
-
+    // Get last 10 transactions
     const lastTransactions = await incomeModel.aggregate([
-        { $match: { userId: userObjectId } },
-        { $project: { amount: 1, date: 1, source: 1, type: { $literal: "income" } } },
-        { $unionWith: { coll: "expenses", pipeline: [
-          { $match: { userId: userObjectId } },
-          { $project: { amount: 1, date: 1, category: 1, type: { $literal: "expense" } } }
-        ]}},
-        { $sort: { date: -1 } },
-        { $limit: 10 }
-      ]);
+      { $match: { userId: userObjectId } },
+      {
+        $project: {
+          amount: 1,
+          date: 1,
+          source: 1,
+          type: { $literal: "income" },
+        },
+      },
+      {
+        $unionWith: {
+          coll: "expenses",
+          pipeline: [
+            { $match: { userId: userObjectId } },
+            {
+              $project: {
+                amount: 1,
+                date: 1,
+                category: 1,
+                type: { $literal: "expense" },
+              },
+            },
+          ],
+        },
+      },
+      { $sort: { date: -1 } },
+      { $limit: 10 },
+    ]);
 
     // Final Response
     res.status(200).json({

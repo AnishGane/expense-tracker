@@ -36,7 +36,12 @@ const SideMenu = ({ activeMenu }) => {
         ) : (
           <CharAvatar fullName={user?.fullName} width="w-20" height="h-20" style="text-xl" />
         )}
-        <h5 className="leading-6 font-medium text-gray-950">{user?.fullName || ''}</h5>
+        <div className="text-center">
+          <h5 className="leading-6 font-medium text-gray-950">{user?.fullName || ''}</h5>
+          <p className="text-xs text-gray-400">
+            @{user?.fullName.trim().replace(/ /g, '').toLowerCase() || ''}
+          </p>
+        </div>
       </div>
 
       {SIDE_MENU_DATA.map((item, index) => (
@@ -53,6 +58,10 @@ const SideMenu = ({ activeMenu }) => {
           {item.label}
         </button>
       ))}
+      <div className="absolute bottom-24 text-center  px-5 md:bottom-7">
+        <p className="text-[15px]">{user?.email}</p>
+        <code className="text-sm text-gray-600">&lt; Be Happy & Code./&gt;</code>
+      </div>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { validateEmail } from '../../utils/helper';
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import { UserContext } from '../../context/UserContext';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -47,6 +48,7 @@ const Login = () => {
         console.log(user);
         updateUser(user);
         navigate('/dashboard');
+        toast.success('Logged in successfully');
       }
     } catch (error) {
       if (error.response && error.response.data.message) {
