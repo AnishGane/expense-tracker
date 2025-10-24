@@ -14,6 +14,10 @@
     overflow-x: hidden;
     letter-spacing: 0.025em;
   }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .input-box {

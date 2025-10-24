@@ -6,7 +6,10 @@ const Navbar = ({ activeMenu }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
   return (
     <div className="sticky top-0 z-30 flex gap-5 border border-b border-gray-200/50 bg-white px-7 py-4 backdrop-blur-[2px]">
-      <button className="block text-black lg:hidden" onClick={() => setOpenSideMenu(!openSideMenu)}>
+      <button
+        className="block cursor-pointer text-black lg:hidden"
+        onClick={() => setOpenSideMenu(!openSideMenu)}
+      >
         {openSideMenu ? (
           <HiOutlineX className="text-2xl" />
         ) : (

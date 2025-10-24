@@ -11,6 +11,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
   });
 
   const handleChange = (key, value) => setExpense({ ...expense, [key]: value });
+
   return (
     <div>
       <EmojiPickerPopup
@@ -20,7 +21,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
       <Input
         value={expense.category}
         onChange={({ target }) => handleChange('category', target.value)}
-        label="expense category"
+        label="Expense Category"
         placeholder="Food, Shopping, etc."
         type="text"
       />

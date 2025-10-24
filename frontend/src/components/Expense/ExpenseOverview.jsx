@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { prepareExpenseLineChartData } from '../../utils/helper';
+import { prepareExpenseChartData } from '../../utils/helper';
 import { LuPlus } from 'react-icons/lu';
 import CustomLineChart from '../Charts/CustomLineChart';
 
@@ -7,7 +7,7 @@ const ExpenseOverview = ({ transactions, onAddExpense }) => {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    const result = prepareExpenseLineChartData(transactions);
+    const result = prepareExpenseChartData(transactions);
     setChartData(result);
 
     return () => {};

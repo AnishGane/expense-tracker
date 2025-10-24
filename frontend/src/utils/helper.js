@@ -25,38 +25,31 @@ export const addThousandsSeparator = (num) => {
   return fractionalPart ? `${formattedInteger}.${fractionalPart}` : formattedInteger;
 };
 
-export const prepareExpenseBarChartData = (data = []) => {
-  const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  const chartData = sortedData.map((item) => ({
-    month: moment(item?.date).format('Do MMM YYYY'),
-    amount: item?.amount,
-    category: item?.category,
-  }));
-  return chartData;
-};
-
-export const prepareIncomeBarChartData = (data = []) => {
-  const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  const chartData = sortedData.map((item) => ({
-    month: moment(item?.date).format('Do MMM YYYY'),
-    amount: item?.amount,
-    source: item?.source,
-  }));
-  return chartData;
-};
-
-export const prepareExpenseLineChartData = (data = []) => {
+export const prepareExpenseChartData = (data = []) => {
   if (!data.length) return [];
 
   const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
 
   const chartData = sortedData.map((item, index) => ({
     // Make label unique (date + short category or index)
-    month: `${moment(item.date).format('Do MMM')} (${item.category.slice(0, 3)})`,
+    month: `${moment(item.date).format('Do MMM')} (${item.category.slice(0, 4)})`,
     amount: Number(item.amount),
     category: item.category,
+  }));
+
+  return chartData;
+};
+
+export const prepareIncomeBarChartData = (data = []) => {
+  if (!data.length) return [];
+
+  const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const chartData = sortedData.map((item, index) => ({
+    // Make label unique (date + short category or index)
+    month: `${moment(item.date).format('Do MMM')} (${item.source.slice(0, 3)})`,
+    amount: Number(item.amount),
+    source: item.source,
   }));
 
   return chartData;
