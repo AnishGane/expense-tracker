@@ -5,9 +5,12 @@ import { isValidObjectId, Types } from "mongoose";
 export const getDashboardData = async (req, res) => {
   try {
     const userId = req.user.id;
+    // Convert it to userObjectId , so Mongoose queries recognize it
     const userObjectId = new Types.ObjectId(String(userId));
 
     // Fetch total income & expenses for the user
+    //$match: Finds all income documents for this user
+    // $group: Groups all those documents together (since _id: null) and sums the amount field
     const totalIncome = await incomeModel.aggregate([
       { $match: { userId: userObjectId } },
       { $group: { _id: null, total: { $sum: "$amount" } } },
@@ -34,9 +37,9 @@ export const getDashboardData = async (req, res) => {
     const last60DaysIncomeTransaction = await incomeModel
       .find({
         userId,
-        date: { $gte: sixtyDaysAgo },
+        date: { $gte: sixtyDaysAgo }, //$gte -> greater than or equal
       })
-      .sort({ date: -1 });
+      .sort({ date: -1 }); // newest first
 
     // Get total income in the last 60 days
     const incomeLast60Days = last60DaysIncomeTransaction.reduce(
