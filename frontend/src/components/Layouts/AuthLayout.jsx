@@ -1,5 +1,4 @@
 import React from 'react';
-import cardImage from '../../assets/images/cardImage.webp';
 import StatsInfoCard from '../StatsInfoCard';
 import { LuTrendingUpDown } from 'react-icons/lu';
 
@@ -28,7 +27,7 @@ const AuthLayout = ({ children }) => {
         </div>
 
         <img
-          src={cardImage}
+          src="/images/cardImage.webp"
           className="absolute bottom-10 w-64 shadow-lg shadow-blue-400/15 lg:w-[90%]"
           alt="bg-auth-img"
         />

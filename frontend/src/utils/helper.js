@@ -54,3 +54,27 @@ export const prepareIncomeBarChartData = (data = []) => {
 
   return chartData;
 };
+
+export const prepareInsightsChartData = (data, predictedExpense) => {
+  if (!data || data.length === 0) return [];
+
+  const formatted = data.map((item) => ({
+    name: `${item.month}/${item.year}`,
+    expense: item.total,
+  }));
+
+  // Add predicted month
+  if (predictedExpense) {
+    const last = data[data.length - 1];
+    const nextMonth = last.month === 12 ? 1 : last.month + 1;
+    const nextYear = last.month === 12 ? last.year + 1 : last.year;
+
+    formatted.push({
+      name: `${nextMonth}/${nextYear}`,
+      expense: predictedExpense,
+      predicted: true,
+    });
+  }
+
+  return formatted;
+};
