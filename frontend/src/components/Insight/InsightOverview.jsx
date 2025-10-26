@@ -24,7 +24,11 @@ const InsightOverview = ({ data }) => {
           label="Average Monthly Expense"
           value={`$${addThousandsSeparator(averageExpense.toFixed(2) || 0)}`}
         />
-        <InsightsInfoCard label="Expense/Income Ratio" value={expenseToIncomeRatio} />
+        <InsightsInfoCard
+          label="Expense/Income Ratio"
+          value={expenseToIncomeRatio}
+          desc={`You have spent ${expenseToIncomeRatio * 100}% of your income on expenses.` || ''}
+        />
         <div className="">
           <p className="text-sm text-gray-500"></p>
           <h3 className="text-xl font-medium"></h3>

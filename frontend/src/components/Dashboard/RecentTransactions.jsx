@@ -15,6 +15,14 @@ const RecentTransactions = ({ transactions, onSeeMore }) => {
       </div>
 
       <div className="mt-6">
+        {transactions?.length === 0 && (
+          <div>
+            <p className="text-sm text-gray-500">No recent transactions</p>
+            <p className="text-xs mt-1 text-gray-500 tracking-wide">
+              Go to Income/Expense to add transactions and <br /> see the recent one
+            </p>
+          </div>
+        )}
         {transactions?.slice(0, 5).map((item) => (
           <TransactionInfoCard
             key={item._id}

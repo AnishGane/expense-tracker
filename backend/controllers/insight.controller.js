@@ -11,7 +11,7 @@ export const getExpenseInsights = async (req, res) => {
     const sixMonthsAgo = new Date();
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
-    // 1 Get expense data for past 6 months grouped by month
+    // 1️ Get expense data for past 6 months grouped by month
     const monthlyExpenses = await expenseModel.aggregate([
       {
         $match: {
@@ -31,10 +31,10 @@ export const getExpenseInsights = async (req, res) => {
       { $sort: { "_id.year": 1, "_id.month": 1 } },
     ]);
 
-    // 2 Predict next month's expense using Simple Linear Regression
     let prediction = null;
 
     if (monthlyExpenses.length >= 2) {
+      // 2️ Predict next month's expense using Simple Linear Regression
       const expenses = monthlyExpenses.map((m) => m.totalExpenses);
       const n = expenses.length;
       const x = Array.from({ length: n }, (_, i) => i + 1);
@@ -50,6 +50,7 @@ export const getExpenseInsights = async (req, res) => {
         (sum, xi) => sum + Math.pow(xi - meanX, 2),
         0
       );
+
       const b = denominator !== 0 ? numerator / denominator : 0;
       const a = meanY - b * meanX;
 
@@ -59,7 +60,7 @@ export const getExpenseInsights = async (req, res) => {
         predictedExpense: Math.round(
           predictedExpense > 0 ? predictedExpense : meanY
         ),
-        monthlyData: monthlyExpenses.map((m, i) => ({
+        monthlyData: monthlyExpenses.map((m) => ({
           month: m._id.month,
           year: m._id.year,
           total: m.totalExpenses,
@@ -75,9 +76,38 @@ export const getExpenseInsights = async (req, res) => {
               : "stable expenses",
         },
       };
+    } else if (monthlyExpenses.length === 1) {
+      // 3️ If only one month of data, predict same as last month
+      const single = monthlyExpenses[0];
+      prediction = {
+        predictedExpense: Math.round(single.totalExpenses),
+        monthlyData: [
+          {
+            month: single._id.month,
+            year: single._id.year,
+            total: single.totalExpenses,
+          },
+        ],
+        regressionInfo: {
+          slope: "0.00",
+          intercept: single.totalExpenses.toFixed(2),
+          trend: "insufficient data — assumed stable expenses",
+        },
+      };
+    } else {
+      // 4️ No data at all
+      prediction = {
+        predictedExpense: 0,
+        monthlyData: [],
+        regressionInfo: {
+          slope: "0.00",
+          intercept: "0.00",
+          trend: "no expense data available",
+        },
+      };
     }
 
-    // 3️ Get average income-expense ratio
+    // 5️ Get income data to compute average income-expense ratio
     const incomeData = await incomeModel.aggregate([
       {
         $match: {
@@ -110,7 +140,7 @@ export const getExpenseInsights = async (req, res) => {
 
     const ratio = avgIncome ? (avgExpense / avgIncome).toFixed(2) : null;
 
-    // 4️ Final Response
+    // ✅ Final Response
     res.status(200).json({
       success: true,
       prediction,
@@ -121,8 +151,9 @@ export const getExpenseInsights = async (req, res) => {
     });
   } catch (error) {
     console.error("Insights error:", error);
-    res
-      .status(500)
-      .json({ message: "Failed to generate insights", error: error.message });
+    res.status(500).json({
+      message: "Failed to generate insights",
+      error: error.message,
+    });
   }
 };

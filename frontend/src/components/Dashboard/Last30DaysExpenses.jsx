@@ -17,8 +17,10 @@ const Last30DaysExpenses = ({ data, type }) => {
       <div className="flex items-center justify-between">
         <h5 className="text-lg">Last 30 Days Expenses</h5>
       </div>
-
-      <CustomBarChart type={type} data={chartData} />
+      <div className="mt-6">
+        {data?.length === 0 && <p className="text-sm text-gray-500">No records of last 30 days expenses</p>}
+        <CustomBarChart type={type} data={chartData} />
+      </div>
     </div>
   );
 };
