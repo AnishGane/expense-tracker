@@ -116,22 +116,22 @@ expense-tracker/
 
 ### 🔐 Sign Up Page
 
-![Sign Up Preview](./frontend/public/previews/Auth_preview.png)
+![Sign Up Preview](./frontend/public/Previews/Auth_preview.png)
 _Sign up page for user to create a account_
 
 ### 🖥️ Dashboard Page
 
-![Dashboard Preview](./frontend/public/previews/dashboard_preview.png)
+![Dashboard Preview](./frontend/public/Previews/dashboard_preview.png)
 _Dashboard Overview page for recent transactions, last 30 days expenses & many more_
 
 ### 💸 Expense Page
 
-![Expense Preview](./frontend/public/previews/expense_preview.png)
+![Expense Preview](./frontend/public/Previews/expense_preview.png)
 _Expense Overview with intuitive UI & interactive chart and expenses history with real-time transacrions_
 
 ### 💸 Expense Forecast Page
 
-![Expense Preview](./frontend/public/previews/expenseforecast_preview.png)
+![Expense Preview](./frontend/public/Previews/expenseforecast_preview.png)
 _Expense Forecast to show the prediction for next month expense, average monthly expense and expense/income ratio with interactive chart_
 
 ---
