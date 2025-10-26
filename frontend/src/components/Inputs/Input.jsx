@@ -9,7 +9,7 @@ const Input = ({ value, onChange, placeholder, className, type, label }) => {
   };
   return (
     <div className={`${className}`}>
-      <label htmlFor={label} className="text-sm text-slate-800 dark:text-white">
+      <label htmlFor={label} className="text-sm text-slate-800">
         {label}
       </label>
 

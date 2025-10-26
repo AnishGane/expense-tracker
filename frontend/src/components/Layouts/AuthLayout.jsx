@@ -21,7 +21,8 @@ const AuthLayout = ({ children }) => {
 
       {/* Heading and the Login & Signup Content */}
       <div className="z-40 h-screen w-screen px-12 pt-8 pb-12 md:w-[60vw]">
-        <h2 className="text-lg font-semibold text-black">Expense Tracker</h2>
+        {/* <h2 className="text-lg font-semibold text-black">Expense Tracker</h2> */}
+        <img src="/images/Logo.webp" alt="Logo" width={180} />
         {children}
       </div>
 

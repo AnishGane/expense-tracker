@@ -81,9 +81,9 @@ npm run dev
 
 ```
 
-The app will be available at:
-👉 Frontend: http://localhost:{frontend_port}
-👉 Backend: http://localhost:{backend_port}
+The app will be available at, for example: <br />
+👉 Frontend: http://localhost:5173 <br />
+👉 Backend: http://localhost:8000
 
 ---
 
@@ -110,3 +110,7 @@ expense-tracker/
 └── README.md
 
 ```
+
+## Screenshots
+
+[Sign Up Preview](/frontend/public/Previews/Auth_preview.png)
