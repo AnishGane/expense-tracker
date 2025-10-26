@@ -34,12 +34,19 @@ const CustomLineChart = ({ data }) => {
               <stop offset="95%" stopColor="#f87171" stopOpacity={0} />
             </linearGradient>
           </defs>
-
           <CartesianGrid stroke="none" />
-          <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#555' }} stroke="none" />
+          <XAxis
+            dataKey="month"
+            tick={{ fontSize: 12, fill: '#555' }}
+            stroke="none"
+            tickFormatter={(value) => {
+              // value is like "26 Oct (Food)"
+              // split by "(" and take the first part
+              return value.split('(')[0].trim();
+            }}
+          />{' '}
           <YAxis tick={{ fontSize: 12, fill: '#555' }} stroke="none" />
           <Tooltip content={<CustomTooltip />} />
-
           <Area
             type="monotone"
             dataKey="amount"

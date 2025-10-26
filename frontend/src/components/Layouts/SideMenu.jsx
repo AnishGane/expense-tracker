@@ -58,9 +58,9 @@ const SideMenu = ({ activeMenu }) => {
           {item.label}
         </button>
       ))}
-      <div className="absolute bottom-24 text-center  px-5 md:bottom-7">
+      <div className="absolute bottom-24 px-5 text-center md:bottom-7">
         <p className="text-[15px]">{user?.email}</p>
-        <code className="text-sm text-gray-600">&lt; Be Happy & Code./&gt;</code>
+        <code className="text-sm text-gray-600">&lt; Be Happy & Code /&gt;</code>
       </div>
     </div>
   );

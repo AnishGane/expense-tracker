@@ -44,7 +44,16 @@ const CustomBarChart = ({ data, type }) => {
         <BarChart data={data}>
           <CartesianGrid stroke="none" />
 
-          <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#555' }} stroke="none" />
+          <XAxis
+            dataKey="month"
+            tick={{ fontSize: 12, fill: '#555' }}
+            stroke="none"
+            tickFormatter={(value) => {
+              // value is like "1st Oct (Salary)"
+              // split by "(" and take the first part
+              return value.split('(')[0].trim();
+            }}
+          />
           <YAxis tick={{ fontSize: 12, fill: '#555' }} stroke="none" />
 
           <Tooltip content={CustomTooltip} />
