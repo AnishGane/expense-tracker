@@ -136,16 +136,16 @@ _Expense Forecast to show the prediction for next month expense, average monthly
 
 ---
 
-#### 🤝 Contributing
+## 🤝 Contributing
 
 Contributions are always welcome!
 If you’d like to improve the project, feel free to fork the repo, create a branch, and submit a pull request.
 
-#### 📜 License
+## 📜 License
 
-This project is licensed under the **MIT License** — you’re free to use and modify it.
+This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE) file for details.
 
-#### ✨ Acknowledgements
+## ✨ Acknowledgements
 
 Special thanks to:
 
