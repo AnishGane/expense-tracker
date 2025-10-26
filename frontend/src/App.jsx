@@ -47,7 +47,7 @@ const App = () => {
           },
           success: {
             style: {
-              background: '#16a34a', // green-600
+              background: '#875cf5',
               color: '#fff',
             },
             iconTheme: {

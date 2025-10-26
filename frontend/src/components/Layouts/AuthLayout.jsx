@@ -4,9 +4,23 @@ import { LuTrendingUpDown } from 'react-icons/lu';
 
 const AuthLayout = ({ children }) => {
   return (
-    <div className="flex">
+    <div className="relative flex min-h-screen w-full bg-[#f9fafb]">
+      {/* Diagonal Fade Grid Background - Top Left */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+        linear-gradient(to right, #d1d5db 1px, transparent 1px),
+        linear-gradient(to bottom, #d1d5db 1px, transparent 1px)
+      `,
+          backgroundSize: '32px 32px',
+          WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 0% 0%, #000 50%, transparent 90%)',
+          maskImage: 'radial-gradient(ellipse 80% 80% at 0% 0%, #000 50%, transparent 90%)',
+        }}
+      />
+
       {/* Heading and the Login & Signup Content */}
-      <div className="h-screen w-screen px-12 pt-8 pb-12 md:w-[60vw]">
+      <div className="z-40 h-screen w-screen px-12 pt-8 pb-12 md:w-[60vw]">
         <h2 className="text-lg font-semibold text-black">Expense Tracker</h2>
         {children}
       </div>

@@ -33,14 +33,17 @@ const Insight = () => {
 
   useEffect(() => {
     fetchInsight();
+    return () => {};
   }, []);
-
-  if (!data) return <div className="min-h-screen w-full text-center">Loading...</div>;
 
   return (
     <DashboardLayout activeMenu="ExpenseForecast">
       <div className="mx-auto my-5">
-        <InsightOverview data={data} />
+        {data ? (
+          <InsightOverview data={data} />
+        ) : (
+          <div className="py-10 text-center text-gray-500">Loading expenseForecast data...</div>
+        )}
       </div>
     </DashboardLayout>
   );

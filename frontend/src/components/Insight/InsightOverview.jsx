@@ -5,7 +5,7 @@ import InfoCard from '../Cards/InfoCard';
 import InsightsInfoCard from '../Cards/InsightsInfoCard';
 
 const InsightOverview = ({ data }) => {
-  const { prediction, averageExpense, expenseToIncomeRatio } = data;
+  const { prediction, averageExpense, expenseToIncomeRatio } = data || {};
 
   return (
     <div>

@@ -17,7 +17,7 @@ const CustomBarChart = ({ data, type }) => {
       ? type?.toLowerCase() === 'expense'
         ? '#ef4444'
         : '#22c55e'
-      : type?.toLowerCase() === 'expense'
+      : type?.toLowerCase() === 'income'
         ? '#fca5a5'
         : '#86efac';
   };
