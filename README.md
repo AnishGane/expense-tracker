@@ -70,7 +70,7 @@ cd backend
 npm install
 
 # 4️⃣ Run the backend server
-npm start
+npm run server
 
 # 5️⃣ Install dependencies for frontend
 cd ../frontend
@@ -81,4 +81,32 @@ npm run dev
 
 ```
 
+The app will be available at:
+👉 Frontend: http://localhost:{frontend_port}
+👉 Backend: http://localhost:{backend_port}
+
 ---
+
+## 📂 Folder Structure
+
+```
+expense-tracker/
+├── backend/
+|   ├── config/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── upload/  -> folder is in .gitignore
+│   └── server.js
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   └── utils/
+│   └── public/
+└── README.md
+
+```
