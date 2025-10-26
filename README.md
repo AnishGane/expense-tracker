@@ -51,6 +51,7 @@ Built with React.js, this application focuses on a **minimal**, **clean design**
 - ✅ Expense Forecast using Simple Linear Regression
 - ✅ Dashboard Overview with Visual Charts
 - ✅ Real-Time Data Updates
+- ✅ Download income and expense report in excel format for future use
 
 ---
 
@@ -81,8 +82,8 @@ npm run dev
 
 ```
 
-The app will be available at, for example: <br />
-👉 Frontend: http://localhost:5173 <br />
+The app will be available at, for example:
+👉 Frontend: http://localhost:5173
 👉 Backend: http://localhost:8000
 
 ---
@@ -113,4 +114,45 @@ expense-tracker/
 
 ## Screenshots
 
-[Sign Up Preview](/frontend/public/Previews/Auth_preview.png)
+### 🔐 Sign Up Page
+
+![Sign Up Preview](./frontend/public/previews/Auth_preview.png)
+_Sign up page for user to create a account_
+
+### 🖥️ Dashboard Page
+
+![Dashboard Preview](./frontend/public/previews/dashboard_preview.png)
+_Dashboard Overview page for recent transactions, last 30 days expenses & many more_
+
+### 💸 Expense Page
+
+![Expense Preview](./frontend/public/previews/expense_preview.png)
+_Expense Overview with intuitive UI & interactive chart and expenses history with real-time transacrions_
+
+### 💸 Expense Forecast Page
+
+![Expense Preview](./frontend/public/previews/expenseforecast_preview.png)
+_Expense Forecast to show the prediction for next month expense, average monthly expense and expense/income ratio with interactive chart_
+
+---
+
+#### 🤝 Contributing
+
+Contributions are always welcome!
+If you’d like to improve the project, feel free to fork the repo, create a branch, and submit a pull request.
+
+#### 📜 License
+
+This project is licensed under the **MIT License** — you’re free to use and modify it.
+
+#### ✨ Acknowledgements
+
+Special thanks to:
+
+- React, Express & MongoDB documentation
+- Recharts and Tailwind CSS for great developer experience
+
+---
+
+**Author :** [AnishGane](https://github.com/AnishGane)
+**For More Details :** anishgane10@gmail.com
