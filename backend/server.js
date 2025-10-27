@@ -13,10 +13,10 @@ dotenv.config(); // should come first
 const app = express();
 
 const corsOptions = {
-  origin: process.env.CLIENT_URL || "*",
+  origin: [(process.env.CLIENT_URL, "http://localhost:8000")] || "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  // credentials: true,
+  credentials: true,
 };
 
 // Middleware
