@@ -11,7 +11,7 @@ const ExpenseForecast = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchInsight = async () => {
+  const fetchExpenseForecast = async () => {
     if (loading) return;
 
     setLoading(true);
@@ -32,7 +32,7 @@ const ExpenseForecast = () => {
   };
 
   useEffect(() => {
-    fetchInsight();
+    fetchExpenseForecast();
     return () => {};
   }, []);
 

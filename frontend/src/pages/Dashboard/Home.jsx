@@ -73,28 +73,23 @@ const Home = () => {
             transactions={dashboardData?.recentTransactions}
             onSeeMore={() => navigate('/expense')}
           />
-
           <FinanceOverview
             totalBalance={dashboardData?.totalBalance || 0}
             totalIncome={dashboardData?.totalIncome || 0}
             totalExpenses={dashboardData?.totalExpenses || 0}
           />
-
           <ExpenseTransactions
             transactions={dashboardData?.last30DaysExpenses?.transactions || []}
             onSeeMore={() => navigate('/expense')}
           />
-
           <Last30DaysExpenses
             type="expense"
             data={dashboardData?.last30DaysExpenses?.transactions || []}
           />
-
           <RecentIncomeWithChart
             data={dashboardData?.last60DaysIncome?.transactions?.slice(0, 4) || []}
             totalIncome={dashboardData?.totalIncome || 0}
           />
-
           <RecentIncome
             transactions={dashboardData?.last60DaysIncome?.transactions || []}
             onSeeMore={() => navigate('/income')}
