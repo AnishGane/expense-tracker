@@ -15,7 +15,7 @@ import {
 } from 'recharts';
 import { prepareInsightsChartData } from '../../utils/helper';
 
-const InsightsChart = ({ data, predictedExpense, regressionInfo }) => {
+const ExpenseForecastChart = ({ data, predictedExpense, regressionInfo }) => {
   const [displayData, setDisplayData] = useState([]);
 
   useEffect(() => {
@@ -111,4 +111,4 @@ const InsightsChart = ({ data, predictedExpense, regressionInfo }) => {
   );
 };
 
-export default InsightsChart;
+export default ExpenseForecastChart;

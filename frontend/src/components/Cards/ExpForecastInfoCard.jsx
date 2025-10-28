@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InsightsInfoCard = ({ label, value, desc }) => {
+const ExpForecastInfoCard = ({ label, value, desc }) => {
   return (
     <div className="rounded-2xl border border-gray-200/50 bg-white p-6 shadow-md shadow-gray-100">
       <h6 className="mb-1 text-sm text-gray-500">{label}</h6>
@@ -12,4 +12,4 @@ const InsightsInfoCard = ({ label, value, desc }) => {
   );
 };
 
-export default InsightsInfoCard;
+export default ExpForecastInfoCard;

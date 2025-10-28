@@ -1,10 +1,9 @@
 import React from 'react';
 import { addThousandsSeparator } from '../../utils/helper';
-import InsightsChart from '../Charts/InsightsChart';
-import InfoCard from '../Cards/InfoCard';
-import InsightsInfoCard from '../Cards/InsightsInfoCard';
+import ExpForecastInfoCard from '../Cards/ExpForecastInfoCard';
+import ExpenseForecastChart from '../Charts/ExpenseForecastChart';
 
-const InsightOverview = ({ data }) => {
+const ExpenseOverview = ({ data }) => {
   const { prediction, averageExpense, expenseToIncomeRatio } = data || {};
 
   return (
@@ -16,15 +15,15 @@ const InsightOverview = ({ data }) => {
       </p>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <InsightsInfoCard
+        <ExpForecastInfoCard
           label="Predicted Next Month Expense"
           value={`$${addThousandsSeparator(prediction?.predictedExpense || 0)}`}
         />
-        <InsightsInfoCard
+        <ExpForecastInfoCard
           label="Average Monthly Expense"
           value={`$${addThousandsSeparator(averageExpense.toFixed(2) || 0)}`}
         />
-        <InsightsInfoCard
+        <ExpForecastInfoCard
           label="Expense/Income Ratio"
           value={expenseToIncomeRatio}
           desc={`You have spent ${expenseToIncomeRatio * 100}% of your income on expenses.` || ''}
@@ -37,7 +36,7 @@ const InsightOverview = ({ data }) => {
 
       <div className="mt-6">
         {prediction?.monthlyData && (
-          <InsightsChart
+          <ExpenseForecastChart
             data={prediction.monthlyData}
             predictedExpense={prediction.predictedExpense}
             regressionInfo={prediction.regressionInfo}
@@ -48,4 +47,4 @@ const InsightOverview = ({ data }) => {
   );
 };
 
-export default InsightOverview;
+export default ExpenseOverview;

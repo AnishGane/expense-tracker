@@ -4,9 +4,9 @@ import { API_PATHS } from '../../utils/apiPaths';
 import toast from 'react-hot-toast';
 import { useUserAuth } from '../../hooks/useUserAuth';
 import DashboardLayout from '../../components/Layouts/DashboardLayout';
-import InsightOverview from '../../components/Insight/InsightOverview';
+import ExpenseOverview from '../../components/ExpenseForecast/ExpenseOverview';
 
-const Insight = () => {
+const ExpenseForecast = () => {
   useUserAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ const Insight = () => {
 
     setLoading(true);
     try {
-      const response = await axiosInstance.get(API_PATHS.INSIGHT.GET_EXPENSE_INSIGHT);
+      const response = await axiosInstance.get(API_PATHS.EXPENSE_FORECAST.GET_EXPENSE_FORECAST);
       if (response.data) {
         setData(response.data);
       }
@@ -40,7 +40,7 @@ const Insight = () => {
     <DashboardLayout activeMenu="ExpenseForecast">
       <div className="mx-auto my-5">
         {data ? (
-          <InsightOverview data={data} />
+          <ExpenseOverview data={data} />
         ) : (
           <div className="py-10 text-center text-gray-500">Loading expenseForecast data...</div>
         )}
@@ -49,4 +49,4 @@ const Insight = () => {
   );
 };
 
-export default Insight;
+export default ExpenseForecast;

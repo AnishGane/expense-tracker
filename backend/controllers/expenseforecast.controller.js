@@ -2,7 +2,7 @@ import incomeModel from "../models/Income.model.js";
 import expenseModel from "../models/Expense.model.js";
 import { Types } from "mongoose";
 
-export const getExpenseInsights = async (req, res) => {
+export const getExpenseForecast = async (req, res) => {
   try {
     const userId = req.user.id;
     const userObjectId = new Types.ObjectId(String(userId));

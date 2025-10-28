@@ -6,9 +6,9 @@ import Signup from './pages/Auth/Signup';
 import Home from './pages/Dashboard/Home';
 import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
-import Insight from './pages/Dashboard/Insight';
 import UserProvider from './context/UserContext';
 import { Toaster } from 'react-hot-toast';
+import ExpenseForecast from './pages/Dashboard/ExpenseForecast';
 
 const Root = ({ navigate }) => {
   useEffect(() => {
@@ -32,7 +32,7 @@ const App = () => {
           <Route path="/dashboard" element={<Home />} />
           <Route path="/expense" element={<Expense />} />
           <Route path="/income" element={<Income />} />
-          <Route path="/expenseforecast" element={<Insight />} />
+          <Route path="/expenseforecast" element={<ExpenseForecast />} />
         </Routes>
       </div>
 
