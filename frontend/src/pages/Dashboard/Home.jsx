@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import DashboardLayout from '../../components/Layouts/DashboardLayout';
 import { useUserAuth } from '../../hooks/useUserAuth';
 import { useNavigate } from 'react-router-dom';
@@ -14,20 +14,22 @@ import ExpenseTransactions from '../../components/Dashboard/ExpenseTransactions'
 import Last30DaysExpenses from '../../components/Dashboard/Last30DaysExpenses';
 import RecentIncomeWithChart from '../../components/Dashboard/RecentIncomeWithChart';
 import RecentIncome from '../../components/Dashboard/RecentIncome';
+import ExpenseInsights from '../../components/Dashboard/ExpenseInsights';
+import { UserContext } from '../../context/UserContext'; //
 
 const Home = () => {
   useUserAuth();
-
   const navigate = useNavigate();
+
   const [dashboardData, setDashboardData] = useState(null);
-  const [loading, setLoading] = useState(false);
+
+  const { insightData, loading, setLoading, fetchInsightData } = useContext(UserContext);
 
   const fetchDashboardData = async () => {
     if (loading) return;
     setLoading(true);
     try {
       const response = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
-
       if (response.data) {
         setDashboardData(response.data);
       }
@@ -40,6 +42,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchDashboardData();
+    fetchInsightData();
   }, []);
 
   return (
@@ -52,14 +55,12 @@ const Home = () => {
             value={addThousandsSeparator(dashboardData?.totalBalance || 0)}
             color="bg-primary"
           />
-
           <InfoCard
             icon={<LuHandCoins />}
             label="Total Income"
             value={addThousandsSeparator(dashboardData?.totalIncome || 0)}
             color="bg-orange-500"
           />
-
           <InfoCard
             icon={<LuWalletMinimal />}
             label="Total Expense"
@@ -69,6 +70,7 @@ const Home = () => {
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <ExpenseInsights data={insightData} onSeeMore={() => navigate('/insights')} />
           <RecentTransactions
             transactions={dashboardData?.recentTransactions}
             onSeeMore={() => navigate('/expense')}

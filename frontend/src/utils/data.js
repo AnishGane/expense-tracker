@@ -28,6 +28,12 @@ export const SIDE_MENU_DATA = [
   },
   {
     id: '05',
+    label: 'Insights',
+    path: '/insights',
+    icon: RiLightbulbLine,
+  },
+  {
+    id: '06',
     label: 'Logout',
     path: 'logout',
     icon: LuLogOut,

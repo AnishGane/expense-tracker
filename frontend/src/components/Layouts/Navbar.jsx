@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 import SideMenu from './SideMenu';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const Navbar = ({ activeMenu }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
@@ -18,9 +19,12 @@ const Navbar = ({ activeMenu }) => {
         )}
       </button>
 
-      <Link to="/dashboard">
-        <img src="/images/Logo.webp" alt="Website Logo" width={160} className="cursor-pointer" />
-      </Link>
+      <div className='flex items-center gap-2 justify-between w-full'>
+        <Link to="/dashboard">
+          <img src="/images/Logo.webp" alt="Website Logo" width={160} className="cursor-pointer" />
+        </Link>
+        <p className="text-sm text-gray-500">{moment().format('dddd, MMMM D, YYYY')}</p>
+      </div>
 
       {openSideMenu && (
         <div className="fixed top-[61px] -ml-4 bg-white">

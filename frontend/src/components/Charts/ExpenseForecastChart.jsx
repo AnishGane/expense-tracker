@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -13,13 +12,13 @@ import {
   Area,
   AreaChart,
 } from 'recharts';
-import { prepareInsightsChartData } from '../../utils/helper';
+import { prepareExpenseForecastChartData } from '../../utils/helper';
 
 const ExpenseForecastChart = ({ data, predictedExpense, regressionInfo }) => {
   const [displayData, setDisplayData] = useState([]);
 
   useEffect(() => {
-    const formatted = prepareInsightsChartData(data, predictedExpense);
+    const formatted = prepareExpenseForecastChartData(data, predictedExpense);
     setDisplayData(formatted);
   }, [data, predictedExpense]);
 
@@ -28,7 +27,7 @@ const ExpenseForecastChart = ({ data, predictedExpense, regressionInfo }) => {
   return (
     <>
       <div className="h-80 w-full rounded-2xl bg-white p-4 shadow">
-        <h2 className="mb-4 text-lg">Expense Trend & Prediction</h2>
+        <h2 className="mb-6 text-lg">Expense Trend & Prediction</h2>
 
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={displayData}>
@@ -93,7 +92,7 @@ const ExpenseForecastChart = ({ data, predictedExpense, regressionInfo }) => {
       </div>
 
       {/* Regression info */}
-      <div className="mt-14 w-full rounded-2xl border border-gray-200 bg-white px-10 py-5 shadow-md md:max-w-fit">
+      <div className="mt-16 w-full rounded-2xl border border-gray-200 bg-white px-10 py-5 shadow-md md:max-w-fit">
         {regressionInfo && (
           <div className="text-gray-500">
             <h4 className="mb-2 font-medium text-black">Regression Information</h4>

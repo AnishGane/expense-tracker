@@ -9,6 +9,7 @@ export const API_PATHS = {
   },
   DASHBOARD: {
     GET_DATA: '/api/v1/dashboard',
+    GET_SMART_INSIGHTS: '/api/v1/dashboard/insights',
   },
   INCOME: {
     ADD_INCOME: '/api/v1/income/add',

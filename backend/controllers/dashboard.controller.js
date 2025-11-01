@@ -1,6 +1,7 @@
 import incomeModel from "../models/Income.model.js";
 import expenseModel from "../models/Expense.model.js";
 import { isValidObjectId, Types } from "mongoose";
+import moment from "moment";
 
 export const getDashboardData = async (req, res) => {
   try {
@@ -15,11 +16,6 @@ export const getDashboardData = async (req, res) => {
       { $match: { userId: userObjectId } },
       { $group: { _id: null, total: { $sum: "$amount" } } },
     ]);
-
-    // console.log("totalIncome: ", {
-    //   totalIncome,
-    //   userId: isValidObjectId(userId),
-    // });
 
     const totalExpenses = await expenseModel.aggregate([
       {
@@ -113,5 +109,84 @@ export const getDashboardData = async (req, res) => {
     res
       .status(500)
       .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
+export const getSmartInsights = async (req, res) => {
+  try {
+    const userId = new Types.ObjectId(String(req.user.id));
+
+    // Define date ranges for current and previous months
+    const startOfCurrentMonth = moment().startOf("month").toDate();
+    const endOfCurrentMonth = moment().endOf("month").toDate();
+
+    const startOfPrevMonth = moment()
+      .subtract(1, "month")
+      .startOf("month")
+      .toDate();
+    const endOfPrevMonth = moment()
+      .subtract(1, "month")
+      .endOf("month")
+      .toDate();
+
+    // Fetch current and previous month expenses by date range
+    const [currExpenses, prevExpenses] = await Promise.all([
+      expenseModel.find({
+        userId,
+        date: { $gte: startOfCurrentMonth, $lte: endOfCurrentMonth },
+      }),
+      expenseModel.find({
+        userId,
+        date: { $gte: startOfPrevMonth, $lte: endOfPrevMonth },
+      }),
+    ]);
+
+    // Calculate totals
+    const currentTotal = currExpenses.reduce((sum, e) => sum + e.amount, 0);
+    const prevTotal = prevExpenses.reduce((sum, e) => sum + e.amount, 0);
+
+    // Calculate percentage change
+    const changePercent = prevTotal
+      ? (((currentTotal - prevTotal) / prevTotal) * 100).toFixed(1)
+      : 0;
+
+    // Find top category (this month)
+    const categoryTotals = {};
+    currExpenses.forEach((e) => {
+      categoryTotals[e.category] = (categoryTotals[e.category] || 0) + e.amount;
+    });
+    const topCategory =
+      Object.entries(categoryTotals).sort((a, b) => b[1] - a[1])[0] || [];
+
+    // Find biggest expense
+    const maxExpense =
+      currExpenses.length > 0
+        ? currExpenses.reduce((max, e) => (e.amount > max.amount ? e : max))
+        : null;
+
+    // Calculate average expense over past 3 months
+    const last3Months = await expenseModel.aggregate([
+      {
+        $match: {
+          userId,
+          date: { $gte: moment().subtract(3, "months").toDate() },
+        },
+      },
+      { $group: { _id: null, avgAmount: { $avg: "$amount" } } },
+    ]);
+    const avgExpense = last3Months[0]?.avgAmount || 0;
+
+    res.json({
+      currentTotal,
+      prevTotal,
+      changePercent,
+      topCategory: topCategory[0],
+      topCategoryAmount: topCategory[1],
+      maxExpense,
+      avgExpense,
+    });
+  } catch (error) {
+    console.error("Error fetching insights:", error);
+    res.status(500).json({ message: "Failed to fetch insights" });
   }
 };

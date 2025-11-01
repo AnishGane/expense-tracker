@@ -26,7 +26,10 @@ const ExpenseOverview = ({ data }) => {
         <ExpForecastInfoCard
           label="Expense/Income Ratio"
           value={expenseToIncomeRatio}
-          desc={`You have spent ${expenseToIncomeRatio * 100}% of your income on expenses.` || ''}
+          desc={
+            `You have spent ${expenseToIncomeRatio * 100}% of current month income on expense.` ||
+            ''
+          }
         />
         <div className="">
           <p className="text-sm text-gray-500"></p>

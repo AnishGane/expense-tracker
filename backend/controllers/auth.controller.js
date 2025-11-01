@@ -4,7 +4,7 @@ import UserModel from "../models/User.model.js";
 
 // Generate the json web token
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "10h" });
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 };
 
 // Register a User

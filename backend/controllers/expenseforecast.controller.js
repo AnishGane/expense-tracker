@@ -126,27 +126,55 @@ export const getExpenseForecast = async (req, res) => {
       },
     ]);
 
-    const avgIncome =
-      incomeData.length > 0
-        ? incomeData.reduce((sum, i) => sum + i.totalIncome, 0) /
-          incomeData.length
-        : 0;
-
     const avgExpense =
       monthlyExpenses.length > 0
         ? monthlyExpenses.reduce((sum, e) => sum + e.totalExpenses, 0) /
           monthlyExpenses.length
         : 0;
 
-    const ratio = avgIncome ? (avgExpense / avgIncome).toFixed(2) : null;
+    // Current month range
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    const endOfMonth = new Date();
+    endOfMonth.setMonth(endOfMonth.getMonth() + 1);
+    endOfMonth.setDate(0);
+
+    // Get current month's income and expenses
+    const [currentMonthIncome, currentMonthExpense] = await Promise.all([
+      incomeModel.aggregate([
+        {
+          $match: {
+            userId: userObjectId,
+            date: { $gte: startOfMonth, $lte: endOfMonth },
+          },
+        },
+        { $group: { _id: null, totalIncome: { $sum: "$amount" } } },
+      ]),
+      expenseModel.aggregate([
+        {
+          $match: {
+            userId: userObjectId,
+            date: { $gte: startOfMonth, $lte: endOfMonth },
+          },
+        },
+        { $group: { _id: null, totalExpense: { $sum: "$amount" } } },
+      ]),
+    ]);
+
+    const currentIncome = currentMonthIncome[0]?.totalIncome || 0;
+    const currentExpense = currentMonthExpense[0]?.totalExpense || 0;
+
+    // Calculate current month ratio
+    const currentMonthRatio = currentIncome
+      ? (currentExpense / currentIncome).toFixed(2)
+      : null;
 
     // ✅ Final Response
     res.status(200).json({
       success: true,
       prediction,
       averageExpense: avgExpense,
-      averageIncome: avgIncome,
-      expenseToIncomeRatio: ratio,
+      expenseToIncomeRatio: currentMonthRatio,
       regressionInfo: prediction?.regressionInfo || null,
     });
   } catch (error) {

@@ -55,7 +55,7 @@ export const prepareIncomeBarChartData = (data = []) => {
   return chartData;
 };
 
-export const prepareInsightsChartData = (data, predictedExpense) => {
+export const prepareExpenseForecastChartData = (data, predictedExpense) => {
   if (!data || data.length === 0) return [];
 
   const formatted = data.map((item) => ({
@@ -77,4 +77,24 @@ export const prepareInsightsChartData = (data, predictedExpense) => {
   }
 
   return formatted;
+};
+
+// prepareSmartInsightsChartData
+export const prepareSmartInsightsChartData = (data) => {
+  if (!data) return [];
+
+  return [
+    {
+      name: 'Previous Month',
+      expense: data.prevTotal || 0,
+    },
+    {
+      name: 'Current Month',
+      expense: data.currentTotal || 0,
+    },
+    {
+      name: '3-Month Avg',
+      expense: data.avgExpense || 0,
+    },
+  ];
 };
