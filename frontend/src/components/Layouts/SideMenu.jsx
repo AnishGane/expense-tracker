@@ -10,23 +10,12 @@ const SideMenu = ({ activeMenu }) => {
   const navigate = useNavigate();
 
   const handleClick = (route) => {
-    if (route === 'logout') {
-      handleLogout();
-      return;
-    }
-
     navigate(route);
-  };
-
-  const handleLogout = () => {
-    localStorage.clear();
-    clearUser();
-    navigate('/login');
   };
 
   return (
     <div className="sticky top-0 z-20 min-h-screen w-64 border-r border-gray-200 bg-white p-5">
-      <div className="mt-3 mb-7 flex flex-col items-center justify-center gap-3">
+      {/* <div className="mt-3 mb-7 flex flex-col items-center justify-center gap-3">
         {user?.profileImageUrl ? (
           <img
             src={user.profileImageUrl}
@@ -42,7 +31,7 @@ const SideMenu = ({ activeMenu }) => {
             @{user?.fullName.trim().replace(/ /g, '').toLowerCase() || ''}
           </p>
         </div>
-      </div>
+      </div> */}
 
       {SIDE_MENU_DATA.map((item, index) => (
         <button

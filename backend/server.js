@@ -9,6 +9,7 @@ import incomeRouter from "./routes/income.route.js";
 import expenseRouter from "./routes/expense.route.js";
 import dashboardRouter from "./routes/dashboard.route.js";
 import expenseForecastRoute from "./routes/expenseforecast.route.js";
+import profileRouter from "./routes/profile.route.js";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use("/api/v1/income", incomeRouter);
 app.use("/api/v1/expense", expenseRouter);
 app.use("/api/v1/dashboard", dashboardRouter);
 app.use("/api/v1/expenseforecast", expenseForecastRoute);
+app.use("/api/v1/profile", profileRouter);
 
 // Serve uploads folder
 app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));

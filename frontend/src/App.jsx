@@ -10,6 +10,7 @@ import UserProvider from './context/UserContext';
 import { Toaster } from 'react-hot-toast';
 import ExpenseForecast from './pages/Dashboard/ExpenseForecast';
 import Insights from './pages/Dashboard/Insights';
+import Profile from './pages/Dashboard/Profile';
 
 const Root = ({ navigate }) => {
   useEffect(() => {
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/income" element={<Income />} />
           <Route path="/expenseforecast" element={<ExpenseForecast />} />
           <Route path="/insights" element={<Insights />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
 

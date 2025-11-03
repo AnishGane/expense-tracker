@@ -1,4 +1,4 @@
-import { LuLayoutDashboard, LuHandCoins, LuWalletMinimal, LuLogOut } from 'react-icons/lu';
+import { LuLayoutDashboard, LuHandCoins, LuWalletMinimal, LuUser } from 'react-icons/lu';
 import { RiLightbulbLine } from 'react-icons/ri';
 
 export const SIDE_MENU_DATA = [
@@ -34,8 +34,8 @@ export const SIDE_MENU_DATA = [
   },
   {
     id: '06',
-    label: 'Logout',
-    path: 'logout',
-    icon: LuLogOut,
+    label: 'Profile',
+    path: '/profile',
+    icon: LuUser,
   },
 ];

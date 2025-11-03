@@ -1,22 +1,27 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { API_PATHS } from '../utils/apiPaths';
 import axiosInstance from '../utils/axiosInstance';
 
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const [insightData, setInsightData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // Function to update the user data
   const updateUser = (userData) => {
     setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   // Function to clear the user data when logged out
   const clearUser = () => {
     setUser(null);
+    localStorage.removeItem('user');
   };
 
   // Fetch Insight Data
@@ -34,7 +39,6 @@ const UserProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
   return (
     <UserContext.Provider
       value={{
