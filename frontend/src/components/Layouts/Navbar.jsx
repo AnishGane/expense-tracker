@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 import SideMenu from './SideMenu';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { UserContext } from '../../context/UserContext';
+import CharAvatar from '../Cards/CharAvatar';
 
 const Navbar = ({ activeMenu }) => {
+  const { user } = useContext(UserContext);
   const [openSideMenu, setOpenSideMenu] = useState(false);
+
   return (
     <div className="sticky top-0 z-30 flex gap-5 border border-b border-gray-200/50 bg-white px-7 py-4 backdrop-blur-[2px]">
       <button
@@ -19,11 +23,25 @@ const Navbar = ({ activeMenu }) => {
         )}
       </button>
 
-      <div className='flex items-center gap-2 justify-between w-full'>
+      <div className="flex w-full items-center justify-between gap-2">
         <Link to="/dashboard">
           <img src="/images/Logo.webp" alt="Website Logo" width={160} className="cursor-pointer" />
         </Link>
-        <p className="text-sm text-gray-500">{moment().format('dddd, MMMM D, YYYY')}</p>
+        <div className="flex items-center justify-center gap-4">
+          <p className="hidden text-sm text-gray-500 md:block">
+            {moment().format('dddd, MMMM D, YYYY')}
+          </p>
+
+          {user?.profileImageUrl ? (
+            <img
+              src={user?.profileImageUrl}
+              alt={user?.fullName}
+              className="h-8 w-8 rounded-full"
+            />
+          ) : (
+            <CharAvatar fullName={user?.fullName} width={8} height={8} />
+          )}
+        </div>
       </div>
 
       {openSideMenu && (

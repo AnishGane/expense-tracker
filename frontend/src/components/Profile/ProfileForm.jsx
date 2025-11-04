@@ -5,6 +5,7 @@ import { UserContext } from '../../context/UserContext';
 import ProfilePhotoSelector from '../Inputs/ProfilePhotoSelector';
 import moment from 'moment';
 import { toast } from 'react-hot-toast';
+import uploadImage from '../../utils/uploadImage';
 
 const ProfileForm = () => {
   const { user, updateUser } = useContext(UserContext);
@@ -30,11 +31,14 @@ const ProfileForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      let profileImageUrl = profileImage;
+      let profileImageUrl = null;
 
       if (profileImage instanceof File) {
         const imgUploadRes = await uploadImage(profileImage);
         profileImageUrl = imgUploadRes.imageUrl || '';
+      } else if (profileImage === null) {
+        // Explicitly send null to clear it
+        profileImageUrl = null;
       }
 
       const response = await axiosInstance.put(API_PATHS.PROFILE.UPDATE_PROFILE, {

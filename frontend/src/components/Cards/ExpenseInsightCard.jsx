@@ -9,12 +9,12 @@ const ExpenseInsightCard = ({ data }) => {
         <p className="text-sm text-gray-600">Spending Change</p>
         <div>
           <h2
-            className={`my-0.5 text-2xl font-bold ${data.changePercent >= 0 ? 'text-red-500' : 'text-green-500'}`}
+            className={`my-0.5 text-2xl font-bold ${data?.changePercent >= 0 ? 'text-red-500' : 'text-green-500'}`}
           >
-            {data.changePercent}%
+            {data?.changePercent}%
           </h2>
           <p className="text-xs text-gray-600">
-            Compared to last month (${data.prevTotal?.toLocaleString()})
+            Compared to last month (${data?.prevTotal?.toLocaleString()})
           </p>
         </div>
       </div>
@@ -22,13 +22,13 @@ const ExpenseInsightCard = ({ data }) => {
       <div className="rounded-2xl border border-gray-300 bg-white p-6 shadow-xs">
         <p className="text-sm text-gray-600">Top Category</p>
         <h2 className="my-0.5 text-2xl font-medium tracking-wide">
-          {data.topCategory || (
+          {data?.topCategory || (
             <p className="mt-0.5 text-base">No Top Category for current month</p>
           )}
         </h2>
-        {data.topCategory ? (
+        {data?.topCategory ? (
           <p className="text-sm font-semibold tracking-wide text-gray-500">
-            ${data.topCategoryAmount?.toLocaleString() || 0}
+            ${data?.topCategoryAmount?.toLocaleString() || 0}
           </p>
         ) : (
           ''
@@ -37,7 +37,7 @@ const ExpenseInsightCard = ({ data }) => {
 
       <div className="rounded-2xl border border-gray-300 bg-white p-6 shadow-xs">
         <p className="my-0.5 text-sm text-gray-600">Average Expense (3 month)</p>
-        <h2 className="text-2xl font-medium">${data.avgExpense.toFixed(0)}</h2>
+        <h2 className="text-2xl font-medium">${data?.avgExpense.toFixed(0)}</h2>
       </div>
 
       {pathname === '/insights' && (
