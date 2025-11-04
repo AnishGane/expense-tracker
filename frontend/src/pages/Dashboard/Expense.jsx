@@ -120,6 +120,34 @@ const Expense = () => {
     }
   };
 
+  // handle download expense details pdf
+  const handleDownloadExpensePDF = async () => {
+    try {
+      const response = await axiosInstance.get(`${API_PATHS.EXPENSE.DOWNLOAD_EXPENSE_PDF}`, {
+        responseType: 'blob',
+      });
+
+      // Validate response before creating blob
+      if (!response.data) {
+        alert('No data received from server!');
+        return;
+      }
+
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Expense_Report.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading expense PDF:', error);
+      alert(error.response?.data?.message || 'Error downloading PDF');
+    }
+  };
+
   useEffect(() => {
     fetchExpenseDetails();
 
@@ -141,6 +169,7 @@ const Expense = () => {
             transactions={expenseData}
             onDelete={(id) => setOpenDeleteAlert({ show: true, data: id })}
             onDownload={handleDownloadExpenseDetails}
+            onPDFDownload={handleDownloadExpensePDF}
           />
         </div>
 

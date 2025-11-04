@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
         // Redirect to Login Page
         window.location.href = '/login';
       } else if (error.response.status === 500) {
-        alert(error.response.data.message);
+        alert('500 says: ' + error.response.data.message);
       }
     } else if (error.code === 'ECONNABORTED') {
       alert('Request timed out. Please try again.');

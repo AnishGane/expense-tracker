@@ -95,7 +95,7 @@ const Income = () => {
     }
   };
 
-  // handle download income details
+  // handle download income details excel
   const handleDownloadIncomeDetails = async () => {
     try {
       const response = await axiosInstance.get(`${API_PATHS.INCOME.DOWNLOAD_INCOME}`, {
@@ -114,6 +114,34 @@ const Income = () => {
     } catch (error) {
       console.error('Error downloading income details', error);
       toast.error('Error downloading income details');
+    }
+  };
+
+  // handle download income details pdf
+  const handleDownloadIncomePDF = async () => {
+    try {
+      const response = await axiosInstance.get(`${API_PATHS.INCOME.DOWNLOAD_INCOME_PDF}`, {
+        responseType: 'blob',
+      });
+
+      // Validate response before creating blob
+      if (!response.data) {
+        alert('No data received from server!');
+        return;
+      }
+
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Income_Report.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading income PDF:', error);
+      alert(error.response?.data?.message || 'Error downloading PDF');
     }
   };
 
@@ -139,6 +167,7 @@ const Income = () => {
               setOpenDeleteAlert({ show: true, data: id });
             }}
             onDownload={handleDownloadIncomeDetails}
+            onPDFDownload={handleDownloadIncomePDF}
           />
         </div>
 

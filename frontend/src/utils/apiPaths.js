@@ -16,12 +16,14 @@ export const API_PATHS = {
     GET_ALL_INCOME: '/api/v1/income/get',
     DELETE_INCOME: (incomeId) => `/api/v1/income/${incomeId}`,
     DOWNLOAD_INCOME: '/api/v1/income/downloadexcel',
+    DOWNLOAD_INCOME_PDF: '/api/v1/income/downloadpdf',
   },
   EXPENSE: {
     ADD_EXPENSE: '/api/v1/expense/add',
     GET_ALL_EXPENSE: '/api/v1/expense/get',
     DELETE_EXPENSE: (expenseId) => `/api/v1/expense/${expenseId}`,
     DOWNLOAD_EXPENSE: '/api/v1/expense/downloadexcel',
+    DOWNLOAD_EXPENSE_PDF: '/api/v1/expense/downloadpdf',
   },
   EXPENSE_FORECAST: {
     GET_EXPENSE_FORECAST: '/api/v1/expenseforecast',

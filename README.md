@@ -52,6 +52,8 @@ Built with React.js, this application focuses on a **minimal**, **clean design**
 - ✅ Dashboard Overview with Visual Charts
 - ✅ Real-Time Data Updates
 - ✅ Download income and expense report in excel format for future use
+- ✅ Insight Overview of Expense
+- ✅ User Profile
 
 ---
 
@@ -133,6 +135,16 @@ _Expense Overview with intuitive UI & interactive chart and expenses history wit
 
 ![Expense Preview](./frontend/public/Previews/expenseforecast_preview.png)
 _Expense Forecast to show the prediction for next month expense, average monthly expense and expense/income ratio with interactive chart_
+
+### 💹 Insights
+
+![Insight Preview](./frontend/public/Previews/Insight_preview.png)
+_Quick Expense Insight Overview about spending charge, top category & many more_
+
+### 👨‍🦱 user Profile Page
+
+![User Profile Preview](./frontend/public/Previews/Profile_preview.png)
+_Profile page to show the user image and user details_
 
 ---
 

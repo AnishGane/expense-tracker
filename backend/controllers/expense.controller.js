@@ -1,5 +1,8 @@
 import expenseModel from "../models/Expense.model.js";
 import xlsx from "xlsx";
+import PDFDocument from "pdfkit";
+import { generateTable } from "../lib/PDFtableGenerator.js";
+import moment from "moment";
 
 // Add an Expense
 export const addExpense = async (req, res) => {
@@ -103,5 +106,68 @@ export const downloadExpenseExcel = async (req, res) => {
       message: "Error in downloading Expense",
       error: error.message,
     });
+  }
+};
+
+// ---------------- EXPENSE PDF ----------------
+export const downloadExpensePDF = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const expenses = await expenseModel.find({ userId }).sort({ date: -1 });
+
+    if (!expenses || expenses.length === 0) {
+      return res.status(404).json({ message: "No expense records found!" });
+    }
+
+    // Set headers first
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=Expense_Report.pdf"
+    );
+
+    const doc = new PDFDocument({ margin: 50 });
+    doc.pipe(res);
+
+    // Title
+    doc
+      .fontSize(20)
+      .fillColor("#4caf50")
+      .text("Expense Report", { align: "center" });
+
+    doc.moveDown();
+    doc
+      .fontSize(10)
+      .fillColor("gray")
+      .text(
+        `Generated on: ${moment().format(
+          "MMMM Do YYYY, h:mm A"
+        )}, by Expense Tracker`,
+        {
+          align: "center",
+        }
+      );
+
+    doc.moveDown(2);
+
+    // Safely call generateTable
+    try {
+      generateTable(doc, expenses, ["Category", "Amount", "Date"], "expense");
+    } catch (tableError) {
+      console.error("Error generating table:", tableError);
+      doc.text("Error generating expense table.", { align: "center" });
+    }
+
+    doc.end();
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    // Important: if the response hasn't started streaming yet, send JSON
+    if (!res.headersSent) {
+      res.status(500).json({ message: "Error generating Expense PDF" });
+    } else {
+      // If streaming already started, just end the doc
+      res.end();
+    }
   }
 };

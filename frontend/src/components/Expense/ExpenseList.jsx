@@ -1,17 +1,22 @@
 import React from 'react';
-import { LuDownload } from 'react-icons/lu';
 import TransactionInfoCard from '../Cards/TransactionInfoCard';
 import moment from 'moment';
+import { FaFileExcel, FaFilePdf } from 'react-icons/fa6';
 
-const ExpenseList = ({ transactions, onDelete, onDownload }) => {
+const ExpenseList = ({ transactions, onDelete, onDownload, onPDFDownload }) => {
   return (
     <div className="card">
       <div className="flex items-center justify-between">
         <h5 className="text-lg">All Expenses</h5>
 
-        <button className="card-btn" onClick={onDownload}>
-          <LuDownload className="text-balance" /> Download
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="card-btn" onClick={onDownload}>
+            <FaFileExcel className="text-balance" /> Download Excel
+          </button>
+          <button className="card-btn" onClick={onPDFDownload}>
+            <FaFilePdf className="text-balance" /> Download PDF
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2">

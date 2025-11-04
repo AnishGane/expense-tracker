@@ -1,5 +1,8 @@
 import incomeModel from "../models/Income.model.js";
 import xlsx from "xlsx";
+import PDFDocument from "pdfkit";
+import { generateTable } from "../lib/PDFtableGenerator.js";
+import moment from "moment";
 
 // Add an Income
 export const addIncome = async (req, res) => {
@@ -103,5 +106,67 @@ export const downloadIncomeExcel = async (req, res) => {
       message: "Error in downloading Income",
       error: error.message,
     });
+  }
+};
+
+export const downloadIncomePDF = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const incomes = await incomeModel.find({ userId }).sort({ date: -1 });
+
+    if (!incomes || incomes.length === 0) {
+      return res.status(404).json({ message: "No income records found!" });
+    }
+
+    // Set headers first
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=Income_Report.pdf"
+    );
+
+    const doc = new PDFDocument({ margin: 50 });
+    doc.pipe(res);
+
+    // Title
+    doc
+      .fontSize(20)
+      .fillColor("#4caf50")
+      .text("Income Report", { align: "center" });
+
+    doc.moveDown();
+    doc
+      .fontSize(10)
+      .fillColor("gray")
+      .text(
+        `Generated on: ${moment().format(
+          "MMMM Do YYYY, h:mm A"
+        )}, by Expense Tracker`,
+        {
+          align: "center",
+        }
+      );
+
+    doc.moveDown(2);
+
+    // Safely call generateTable
+    try {
+      generateTable(doc, incomes, ["Source", "Amount", "Date"], "income");
+    } catch (tableError) {
+      console.error("Error generating table:", tableError);
+      doc.text("Error generating income table.", { align: "center" });
+    }
+
+    doc.end();
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    // Important: if the response hasn't started streaming yet, send JSON
+    if (!res.headersSent) {
+      res.status(500).json({ message: "Error generating Income PDF" });
+    } else {
+      // If streaming already started, just end the doc
+      res.end();
+    }
   }
 };
