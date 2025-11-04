@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 // Configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../uploads")); // Correct relative path
+    cb(null, path.join(__dirname, "../uploads")); // relative path
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
@@ -23,11 +23,12 @@ const fileFilter = (req, file, cb) => {
     cb(null, true);
   } else {
     cb(
-      new Error("Invalid file type, Only .jpeg, .jpg and .png are allowed"),
+      new Error("Invalid file type, only .jpeg, .jpg, and .png are allowed"),
       false
     );
   }
 };
 
 const upload = multer({ storage, fileFilter });
+
 export default upload;

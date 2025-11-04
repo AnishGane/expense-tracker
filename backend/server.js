@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 import connectDB from "./config/db.js";
+import { fileURLToPath } from "url";
 
 import authRouter from "./routes/auth.route.js";
 import incomeRouter from "./routes/income.route.js";
@@ -28,6 +29,10 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Must come before routes
 app.use(express.json());
 
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Connect DB
 connectDB();
 
@@ -40,7 +45,7 @@ app.use("/api/v1/expenseforecast", expenseForecastRoute);
 app.use("/api/v1/profile", profileRouter);
 
 // Serve uploads folder
-app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
   res.send("Hello World from Expense Tracker backend!");
