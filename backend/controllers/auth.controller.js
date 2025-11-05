@@ -40,16 +40,26 @@ export const registerUser = async (req, res) => {
     }
 
     // Create a new user
-    const user = await UserModel.create({
+    // Only include profileImageUrl if it's provided and not empty
+    const userData = {
       fullName,
       email,
       password,
-      profileImageUrl,
-    });
+    };
 
-    res.json({
+    if (profileImageUrl && profileImageUrl.trim() !== "") {
+      userData.profileImageUrl = profileImageUrl;
+    }
+
+    const user = await UserModel.create(userData);
+
+    // Remove password from user object before sending response
+    const userResponse = user.toObject();
+    delete userResponse.password;
+
+    res.status(201).json({
       _id: user._id,
-      user,
+      user: userResponse,
       token: generateToken(user._id),
       message: "User registered successfully",
     });
@@ -75,9 +85,13 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // Remove password from user object before sending response
+    const userResponse = user.toObject();
+    delete userResponse.password;
+
     res.status(200).json({
       _id: user._id,
-      user,
+      user: userResponse,
       token: generateToken(user._id),
       message: "Login successful",
     });

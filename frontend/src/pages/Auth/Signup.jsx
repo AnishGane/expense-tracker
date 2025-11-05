@@ -54,27 +54,40 @@ const Signup = () => {
     try {
       // Upload Image if Present
       if (profilePic) {
-        const imgUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imgUploadRes.imageUrl || '';
+        try {
+          const imgUploadRes = await uploadImage(profilePic);
+          profileImageUrl = imgUploadRes.imageUrl || '';
+        } catch (uploadError) {
+          const errorMessage = uploadError?.message || 'Failed to upload profile image';
+          setError(errorMessage);
+          return; // Stop execution if image upload fails
+        }
       }
+
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName,
         email,
         password,
-        profileImageUrl,
+        profileImageUrl: profileImageUrl || undefined, // Send undefined instead of empty string
       });
+
       const { token, user } = response.data;
-      if (token) {
+      if (token && user) {
         localStorage.setItem('token', token);
         updateUser(user);
-        navigate('/login');
+        // Navigate to dashboard after successful signup (auto-login)
+        navigate('/dashboard');
+      } else {
+        setError('Registration successful but login failed. Please try logging in.');
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError('Something went wrong while signing up. Please try again.');
-      }
+      console.error('Signup error:', error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        error?.message ||
+        'Something went wrong while signing up. Please try again.';
+      setError(errorMessage);
     }
   };
 

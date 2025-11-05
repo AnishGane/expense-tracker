@@ -34,8 +34,15 @@ const ProfileForm = () => {
       let profileImageUrl = null;
 
       if (profileImage instanceof File) {
-        const imgUploadRes = await uploadImage(profileImage);
-        profileImageUrl = imgUploadRes.imageUrl || '';
+        try {
+          const imgUploadRes = await uploadImage(profileImage);
+          profileImageUrl = imgUploadRes.imageUrl || '';
+        } catch (uploadError) {
+          const errorMessage = uploadError?.message || 'Failed to upload image';
+          toast.error(errorMessage);
+          setLoading(false);
+          return; // Stop execution if image upload fails
+        }
       } else if (profileImage === null) {
         // Explicitly send null to clear it
         profileImageUrl = null;
@@ -48,10 +55,15 @@ const ProfileForm = () => {
 
       if (response.data && response.data.user) {
         updateUser(response.data.user);
-        toast.success(response.data.message);
+        toast.success(response.data.message || 'Profile updated successfully');
       }
     } catch (error) {
-      console.error(error);
+      console.error('Error updating profile:', error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        'Failed to update profile. Please try again.';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
       setIsEdit(false);

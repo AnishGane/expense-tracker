@@ -36,10 +36,10 @@ const Navbar = ({ activeMenu }) => {
             <img
               src={user?.profileImageUrl}
               alt={user?.fullName}
-              className="h-8 w-8 rounded-full"
+              className="h-8 w-8 rounded-full object-cover"
             />
           ) : (
-            <CharAvatar fullName={user?.fullName} width={8} height={8} />
+            <CharAvatar fullName={user?.fullName} width={'8'} height={'8'} />
           )}
         </div>
       </div>

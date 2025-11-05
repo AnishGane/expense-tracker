@@ -19,18 +19,23 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!email) {
+      setError('Email is required.');
+      return;
+    }
+
     if (!validateEmail(email)) {
       setError('Please enter a valid email address.');
       return;
     }
 
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long.');
+    if (!password) {
+      setError('Password is required.');
       return;
     }
 
-    if (!password) {
-      setError('Password is required.');
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long.');
       return;
     }
 
@@ -42,20 +47,24 @@ const Login = () => {
         email,
         password,
       });
+
       const { token, user } = response.data;
-      if (token) {
+      if (token && user) {
         localStorage.setItem('token', token);
-        console.log(user);
         updateUser(user);
         navigate('/dashboard');
         toast.success('Logged in successfully');
+      } else {
+        setError('Login failed: Invalid response from server.');
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError('Something went wrong while logging in. Please try again.');
-      }
+      console.error('Login error:', error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        error?.message ||
+        'Something went wrong while logging in. Please try again.';
+      setError(errorMessage);
     }
   };
 

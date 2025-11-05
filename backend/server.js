@@ -33,7 +33,7 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Connect DB
+// Config
 connectDB();
 
 // Routes
@@ -45,7 +45,7 @@ app.use("/api/v1/expenseforecast", expenseForecastRoute);
 app.use("/api/v1/profile", profileRouter);
 
 // Serve uploads folder
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
   res.send("Hello World from Expense Tracker backend!");
