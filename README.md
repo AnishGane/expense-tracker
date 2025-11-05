@@ -39,6 +39,10 @@ Built with React.js, this application focuses on a **minimal**, **clean design**
 - 🚀 [Express.js](https://expressjs.com/) – Framework for building REST APIs
 - 🍃 [MongoDB](https://www.mongodb.com/) – NoSQL database for storing user data and transactions
 - 🔐 [JWT Authentication](https://jwt.io/) – For secure user sessions
+- ☁️ [Cloudinary](https://cloudinary.com/) - cloud-based media management service, to handle everything related to images and videos — uploading, storing, optimizing, transforming, and delivering them efficiently via a Content Delivery Network (CDN).
+- 🧩 [Multer](https://blog.logrocket.com/multer-nodejs-express-upload-file/) - handles file uploads locally or temporarily before uploading to Cloudinary
+- 📝 [PDFKit](https://pdfkit.org/docs/getting_started.html) - To create and generate PDF documents programmatically.
+- 📋 [xlsx](https://www.npmjs.com/package/xlsx) - To read, write, and manipulate Excel (.xlsx, .xls, .csv) files
 
 ---
 
@@ -51,7 +55,7 @@ Built with React.js, this application focuses on a **minimal**, **clean design**
 - ✅ Expense Forecast using Simple Linear Regression
 - ✅ Dashboard Overview with Visual Charts
 - ✅ Real-Time Data Updates
-- ✅ Download income and expense report in excel format for future use
+- ✅ Download income and expense report in excel format as well as in pdf for future use
 - ✅ Insight Overview of Expense
 - ✅ User Profile
 
@@ -76,7 +80,7 @@ npm install
 npm run server
 
 # 5️⃣ Install dependencies for frontend
-cd ../frontend
+cd frontend
 npm install
 
 # 6️⃣ Run the frontend
@@ -84,9 +88,11 @@ npm run dev
 
 ```
 
-The app will be available at, for example:
+The app will be available locally at:
 👉 Frontend: http://localhost:5173
 👉 Backend: http://localhost:8000
+
+_Tips: Use this command (node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"), to generate your own JWT Secret key_
 
 ---
 
@@ -100,7 +106,6 @@ expense-tracker/
 │   ├── middlewares/
 │   ├── models/
 │   ├── routes/
-│   ├── upload/  -> folder is in .gitignore
 │   └── server.js
 ├── frontend/
 │   ├── src/
@@ -108,7 +113,8 @@ expense-tracker/
 │   │   ├── pages/
 │   │   ├── context/
 │   │   ├── hooks/
-│   │   └── utils/
+│   │   ├── utils/
+│   │   ├── App.jsx
 │   └── public/
 └── README.md
 
