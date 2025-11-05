@@ -28,6 +28,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); // Must come before routes
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);

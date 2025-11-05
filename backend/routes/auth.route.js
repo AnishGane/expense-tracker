@@ -18,12 +18,25 @@ authRouter.get("/getUser", protect, getUserInfo);
 // ========== CLOUDINARY UPLOAD ROUTE ==========
 authRouter.post(
   "/upload-image",
-  protect,
   upload.single("image"),
   // Error handling middleware for multer errors
   (err, req, res, next) => {
     if (err) {
       console.error("Multer error:", err);
+      // File too large
+      if (err.name === "MulterError" && err.code === "LIMIT_FILE_SIZE") {
+        return res.status(413).json({
+          message: "File too large. Max size is 5MB.",
+          error: err.message,
+        });
+      }
+      // Invalid file type
+      if (err.message === "Only image files are allowed!") {
+        return res.status(400).json({
+          message: "Invalid file type. Only images are allowed.",
+          error: err.message,
+        });
+      }
       return res.status(400).json({
         message: "File upload error",
         error: err.message || "Invalid file upload",

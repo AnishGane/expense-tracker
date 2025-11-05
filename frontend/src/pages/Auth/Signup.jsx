@@ -68,7 +68,7 @@ const Signup = () => {
         fullName,
         email,
         password,
-        profileImageUrl: profileImageUrl || undefined, // Send undefined instead of empty string
+        profileImageUrl: profileImageUrl || '',
       });
 
       const { token, user } = response.data;

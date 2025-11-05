@@ -9,7 +9,12 @@ const generateToken = (id) => {
 
 // Register a User
 export const registerUser = async (req, res) => {
-  const { fullName, email, password, profileImageUrl } = req.body;
+  // Safely handle missing/invalid body
+  if (!req.body || typeof req.body !== "object") {
+    return res.status(400).json({ message: "Invalid request body" });
+  }
+
+  const { fullName, email, password, profileImageUrl } = req.body || {};
 
   //   validate for any missing fields
   if (!fullName || !email || !password) {
@@ -72,7 +77,11 @@ export const registerUser = async (req, res) => {
 
 // Login a User
 export const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  if (!req.body || typeof req.body !== "object") {
+    return res.status(400).json({ message: "Invalid request body" });
+  }
+
+  const { email, password } = req.body || {};
 
   //   validate for any missing fields
   if (!email || !password) {
