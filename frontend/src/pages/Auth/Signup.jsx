@@ -8,6 +8,7 @@ import axiosInstance from '../../utils/axiosInstance';
 import { UserContext } from '../../context/UserContext';
 import uploadImage from '../../utils/uploadImage';
 import { API_PATHS } from '../../utils/apiPaths';
+import { toast } from 'react-hot-toast';
 
 const Signup = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -71,12 +72,13 @@ const Signup = () => {
         profileImageUrl: profileImageUrl || '',
       });
 
-      const { token, user } = response.data;
+      const { token, user, message } = response.data;
       if (token && user) {
         localStorage.setItem('token', token);
         updateUser(user);
         // Navigate to dashboard after successful signup (auto-login)
         navigate('/dashboard');
+        toast.success(message || 'Registration successful!');
       } else {
         setError('Registration successful but login failed. Please try logging in.');
       }
