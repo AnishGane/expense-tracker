@@ -17,12 +17,12 @@ const fileFilter = (req, file, cb) => {
 // This is the middleware function that will be used to handle the upload.
 // It takes a single parameter, which is an object that specifies which fields in the request should be processed.
 // In this case, we're specifying that we want to process a single field: image.
-// Limits: 4MB max file size to stay under common serverless body limits
+// Limits: 10MB max file size to stay under common serverless body limits
 const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 4 * 1024 * 1024, // 4MB in bytes
+    fileSize: 10 * 1024 * 1024, // 10MB in bytes
   },
 });
 
