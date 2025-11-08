@@ -3,6 +3,7 @@ import DashboardLayout from '../../components/Layouts/DashboardLayout';
 import { UserContext } from '../../context/UserContext';
 import InsightOverview from '../../components/Insights/InsightOverview';
 import SmartInsightsChart from '../../components/Cards/SmartInsightsChart';
+import PageTitle from '../../components/PageTitle';
 
 const Insights = () => {
   const { insightData, fetchInsightData } = useContext(UserContext);
@@ -13,6 +14,7 @@ const Insights = () => {
 
   return (
     <DashboardLayout activeMenu="Insights">
+      <PageTitle title="Insights" />
       <div className="mx-auto my-5">
         <div className="grid grid-cols-1 gap-6">
           <div className="card flex flex-col space-y-4">

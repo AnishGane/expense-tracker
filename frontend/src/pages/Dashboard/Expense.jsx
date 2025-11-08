@@ -9,6 +9,7 @@ import Modal from '../../components/Modal';
 import AddExpenseForm from '../../components/Expense/AddExpenseForm';
 import DeleteAlert from '../../components/DeleteAlert';
 import ExpenseList from '../../components/Expense/ExpenseList';
+import PageTitle from '../../components/PageTitle';
 
 const Expense = () => {
   useUserAuth();
@@ -156,6 +157,7 @@ const Expense = () => {
 
   return (
     <DashboardLayout activeMenu="Expense">
+      <PageTitle title="Expense" />
       <div className="mx-auto my-5">
         <div className="grid grid-cols-1 gap-6">
           <div className="">

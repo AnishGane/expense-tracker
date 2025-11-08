@@ -4,6 +4,7 @@ import { LuLogOut } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import ProfileForm from '../../components/Profile/ProfileForm';
+import PageTitle from '../../components/PageTitle';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Profile = () => {
 
   return (
     <DashboardLayout activeMenu="Profile">
+      <PageTitle title="Profile" />
       <div className="mx-auto my-5">
         <div className="card bg-red-400">
           <div className="flex items-center justify-between">

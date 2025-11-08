@@ -16,6 +16,7 @@ import RecentIncomeWithChart from '../../components/Dashboard/RecentIncomeWithCh
 import RecentIncome from '../../components/Dashboard/RecentIncome';
 import ExpenseInsights from '../../components/Dashboard/ExpenseInsights';
 import { UserContext } from '../../context/UserContext'; //
+import PageTitle from '../../components/PageTitle';
 
 const Home = () => {
   useUserAuth();
@@ -47,6 +48,7 @@ const Home = () => {
 
   return (
     <DashboardLayout activeMenu="Dashboard">
+      <PageTitle title="Dashboard" />
       <div className="mx-auto my-5">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <InfoCard

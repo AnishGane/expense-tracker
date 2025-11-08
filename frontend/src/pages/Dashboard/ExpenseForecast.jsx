@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useUserAuth } from '../../hooks/useUserAuth';
 import DashboardLayout from '../../components/Layouts/DashboardLayout';
 import ExpenseOverview from '../../components/ExpenseForecast/ExpenseOverview';
+import PageTitle from '../../components/PageTitle';
 
 const ExpenseForecast = () => {
   useUserAuth();
@@ -38,6 +39,7 @@ const ExpenseForecast = () => {
 
   return (
     <DashboardLayout activeMenu="ExpenseForecast">
+      <PageTitle title="Expense Forecast" />
       <div className="mx-auto my-5">
         {data ? (
           <ExpenseOverview data={data} />
