@@ -88,6 +88,30 @@ npm run dev
 
 ```
 
+## ⚙️ Environment Setup
+
+**Frontend**
+
+```
+VITE_BASE_URL = your_deployed_backendURL || http://localhost:8000
+```
+
+**Backend**
+
+```
+PORT = port_number
+MONGO_URI = your_mongodb_string
+JWT_SECRET = your_jwt_secret
+CLIENT_URL = your_deployed_frontedURL || http://localhost:5173
+
+# Cloudinary api keys (get from cloudinary)
+CLOUDINARY_CLOUD_NAME= your_cloud_name
+CLOUDINARY_API_KEY=your_cloud_apikey
+CLOUDINARY_API_SECRET=your_cloud_apisecret
+```
+
+---
+
 The app will be available locally at:
 👉 Frontend: http://localhost:5173
 👉 Backend: http://localhost:8000
@@ -99,23 +123,24 @@ _Tips: Use this command (node -e "console.log(require('crypto').randomBytes(64).
 ## 📂 Folder Structure
 
 ```
+
 expense-tracker/
 ├── backend/
-|   ├── config/
-│   ├── controllers/
-│   ├── middlewares/
-│   ├── models/
-│   ├── routes/
-│   └── server.js
+| ├── config/
+│ ├── controllers/
+│ ├── middlewares/
+│ ├── models/
+│ ├── routes/
+│ └── server.js
 ├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── context/
-│   │   ├── hooks/
-│   │   ├── utils/
-│   │   ├── App.jsx
-│   └── public/
+│ ├── src/
+│ │ ├── components/
+│ │ ├── pages/
+│ │ ├── context/
+│ │ ├── hooks/
+│ │ ├── utils/
+│ │ ├── App.jsx
+│ └── public/
 └── README.md
 
 ```
@@ -174,3 +199,7 @@ Special thanks to:
 
 **Author :** [AnishGane](https://github.com/AnishGane)
 **For More Details :** anishgane10@gmail.com
+
+```
+
+```
