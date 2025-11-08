@@ -19,12 +19,17 @@ if (!cloudName || !apiKey || !apiSecret) {
   console.log("✅ Cloudinary configuration loaded successfully");
 }
 
-cloudinary.config({
-  cloud_name: cloudName,
-  api_key: apiKey,
-  api_secret: apiSecret,
-  secure: true, // Always use HTTPS
-  timeout: 60000, // 60 seconds timeout
-});
+// Only configure if credentials are present
+if (cloudName && apiKey && apiSecret) {
+  cloudinary.config({
+    cloud_name: cloudName,
+    api_key: apiKey,
+    api_secret: apiSecret,
+    secure: true, // Always use HTTPS
+    timeout: 60000, // 60 seconds timeout
+  });
+} else {
+  console.error("❌ Cloudinary configuration skipped - missing credentials");
+}
 
 export default cloudinary;

@@ -25,7 +25,7 @@ authRouter.post(
       // File too large
       if (err.name === "MulterError" && err.code === "LIMIT_FILE_SIZE") {
         return res.status(413).json({
-          message: "File too large. Max size is 5MB.",
+          message: "File too large. Max size is 4MB.",
           error: err.message,
         });
       }

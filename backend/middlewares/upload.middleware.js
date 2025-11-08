@@ -17,12 +17,12 @@ const fileFilter = (req, file, cb) => {
 // This is the middleware function that will be used to handle the upload.
 // It takes a single parameter, which is an object that specifies which fields in the request should be processed.
 // In this case, we're specifying that we want to process a single field: image.
-// Limits: 5MB max file size (Cloudinary free tier supports up to 10MB, but we'll limit to 5MB for safety)
+// Limits: 4MB max file size to stay under common serverless body limits
 const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB in bytes
+    fileSize: 4 * 1024 * 1024, // 4MB in bytes
   },
 });
 

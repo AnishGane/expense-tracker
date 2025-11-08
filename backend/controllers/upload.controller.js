@@ -3,6 +3,19 @@ import cloudinary from "../config/cloudinary.js";
 
 export const uploadImage = async (req, res, next) => {
   try {
+    // Check if Cloudinary is properly configured
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+    if (!cloudName || !apiKey || !apiSecret) {
+      console.error("❌ Cloudinary credentials are missing");
+      return res.status(503).json({
+        message:
+          "Image upload service is not configured. Please contact support.",
+      });
+    }
+
     if (!req.file) {
       console.log("No image uploaded");
       return res.status(400).json({ message: "No image uploaded" });
